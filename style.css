@@ -1,0 +1,42 @@
+#gmap {
+    height:500px;
+    border-style: groove;
+    border-width: 1px;
+    /* background: transparent url(https://loading.io/spinners/camera/index.svg) no-repeat center center; */
+  }
+  .hidden {
+    display: none;
+  }
+  
+  #GmapShowDetailControl{
+    display: none;
+  }
+  #btnShowDetail{
+    margin: 10px;
+    margin-bottom: 5px;
+    background: #fff;
+  }
+  #gmap-ctrls {
+    display: none;
+  }
+  #gmap-ctrl1 {
+    margin: 10px;
+    margin-bottom: 5px;
+    background: #fff;
+  }
+  #gmap-ctrl1::before {
+    /* content: 'Roads'; */
+    display: block;
+  }
+  .gmap-ctrl {
+    border: 2px solid #fff;
+    border-radius: 2px;
+    box-shadow: 0 1px 2px rgba(0,0,0,.3);
+  }
+  /* .gmap-ctrl strong{
+    border: 1px solid #818181;
+    border-radius: 2px;
+    background:#fff;
+    display:block;
+  } */
+  
