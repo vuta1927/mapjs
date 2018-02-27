@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>My Map</title>
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="style.css" rel="stylesheet">
+    <script src="jquery-3.2.1.min.js" ></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div id="map-wait" name="map-wait" align="center"></div>
+    <div class="GmapShowDetailControl">
+        <a id="gmap-btnShowDetail" class="btn btn-default btn-sm">
+            <i class="fa fa-list"></i> Road List</a>
+    </div>
+    <div id="gmap"></div>
+    <div id="gmap-ctrls">
+        <div id="gmap-ctrl1" class="gmap-ctrl">
+            <div id="gmap-searchPanel" class="form-group" style="width: 300px">
+                <input type="search" class="form-control input" style="font-size: 14px" id="gmap-txtSearch" placeholder="Enter to search">
+            </div>
+
+            <div style="overflow-y: auto; height: 290px; width: 300px">
+                <!-- <div id="results"></div> -->
+                <table id="gmapRoadsTable" class="table table-responsive table-hover table-sm" style="font-size: 14px">
+                    <thead>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+                <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+            </div>
+        </div>
+        <div id="gmap-ctrl2" class="gmap-ctrl">
+            <a id="gmap-setPoint" class="btn btn-default btn-sm">
+                <i class="fa fa-map-marker"></i>
+            </a>
+            <a id="gmap-resetView" class="btn btn-default btn-sm">
+                <i class="fa fa-refresh"></i>
+            </a>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="gmap.js"></script>
+<script type="text/javascript" src="sample.js"></script>
+<script type="text/javascript">
+    function initMap() {
+        var Gmap = new GmapService();
+
+        Gmap.initGoogleMap(sample);
+
+    }
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCIdU-_NtOo4l9pcOEIDMGbgIPnRitcIx8&callback=initMap"
+    type="text/javascript"></script>
+
+</html>
