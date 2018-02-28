@@ -1,5 +1,5 @@
 #gmap {
-  height:600px;
+  height: 600px;
   border-style: groove;
   border-width: 1px;
   background: transparent url(https://loading.io/spinners/camera/index.svg) no-repeat center center;
@@ -11,8 +11,30 @@
 
 #gmap-btnShowDetail {
   margin: 10px;
+  margin-top: 5px;
   margin-bottom: 5px;
-  background: #fff;
+  border: 0px solid #fff;
+  border-radius: 2px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .3);
+}
+
+.stylish-input-group .input-group-addon {
+  background: white !important;
+  border: 1;
+  border-radius: 1px;
+}
+
+.stylish-input-group .form-control {
+  border-right: 0;
+  box-shadow: 0 0 0;
+  border-color: #ccc;
+  border: 1;
+  border-radius: 1px;
+}
+
+.stylish-input-group button {
+  border: 0;
+  background: transparent;
 }
 
 #gmap-ctrls {
@@ -23,6 +45,9 @@
   margin: 10px;
   margin-bottom: 5px;
   background: #fff;
+  border: 5px solid #fff;
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .3);
 }
 
 #gmap-ctrl1::before {
@@ -31,11 +56,36 @@
 }
 
 .gmap-ctrl {
-  border: 2px solid #fff;
-  border-radius: 2px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, .3);
+  border: 0px solid #fff;
+  border-radius: 1px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, .3);
 }
 
+#gmap-ctrl2 {
+  margin: 10px;
+  margin-bottom: 5px;
+  /* background: #fff; */
+}
+
+#gmap-ctrl2::before {
+  /* content: 'Roads'; */
+  display: block;
+}
+
+#gmap-description {
+  margin: 10px;
+  /* margin-top: 13px; */
+  height: 35px;
+  vertical-align: middle;
+  margin-bottom: 5px;
+  background: #fff;
+  border: 5px solid #fff;
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .3);
+}
+#gmap-description::before{
+  display: block;
+}
 /* .gmap-ctrl strong{
     border: 1px solid #818181;
     border-radius: 2px;
