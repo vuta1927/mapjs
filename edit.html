@@ -51,13 +51,25 @@
             </div>
         </div>
         <div id="gmap-ctrl2" class="gmap-ctrl">
-            <a id="gmap-setPoint" class="btn btn-default btn-sm">
-                <i class="fa fa-map-marker"></i>
-            </a>
-            <a id="gmap-resetView" class="btn btn-default btn-sm">
-                <i class="fa fa-refresh"></i>
-            </a>
+            <div>
+                <a id="gmap-setPoint" class="btn btn-default btn-sm">
+                    <i class="fa fa-map-marker"></i>
+                </a>
+            </div>
+            <div>
+                <a id="gmap-resetView" class="btn btn-default btn-sm">
+                    <i class="fa fa-refresh"></i>
+                </a>
+            </div>
+            <div>
+                <a id="gmap-addIconPoint" class="btn btn-default btn-sm">
+                    <i class="fa fa-plus-circle"></i>
+                </a>
+            </div>
         </div>
+        <div id="gmap-ctrl3" class="gmap-ctrl">
+        </div>
+
         <div id="gmap-description" class="gmap-ctrl">
         </div>
     </div>
@@ -67,11 +79,13 @@
 <script type="text/javascript">
     function initMap() {
         var Gmap = new GmapService();
-        Gmap.initGoogleMap(sample2);
+        Gmap.initGoogleMap(sample1);
         Gmap.setCenter(10.801278, 106.712833);
-        Gmap.addDescription('https://cdn2.iconfinder.com/data/icons/color-svg-vector-icons-2/512/map_marker_base-256.png','marker');
-        Gmap.addDescription('https://cdn2.iconfinder.com/data/icons/snipicons/500/road-256.png','my road');
-        Gmap.addDescription('https://cdn4.iconfinder.com/data/icons/aiga-symbol-signs/388/aiga_taxi-256.png','car');
+        Gmap.addDescription(
+            'https://cdn2.iconfinder.com/data/icons/color-svg-vector-icons-2/512/map_marker_base-256.png', 'marker'
+        );
+        Gmap.addDescription('https://cdn2.iconfinder.com/data/icons/snipicons/500/road-256.png', 'my road');
+        Gmap.addDescription('https://cdn4.iconfinder.com/data/icons/aiga-symbol-signs/388/aiga_taxi-256.png', 'car');
     }
 </script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCIdU-_NtOo4l9pcOEIDMGbgIPnRitcIx8&callback=initMap"
