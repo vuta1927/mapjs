@@ -18,8 +18,13 @@
 <body>
     <div id="gmap-wait" name="gmap-wait" align="center"></div>
     <div class="GmapShowDetailControl">
-        <a id="gmap-btnShowDetail" class="btn btn-default btn-sm">
-            <i class="fa fa-list"></i> Road List</a>
+        <div>
+            <a id="gmap-btnShowDetail" class="btn btn-default btn-sm">
+                <i class="fa fa-list"></i> Road List</a>
+        </div>
+    </div>
+
+    <div id="gmap-description" class="gmap-ctrl">
     </div>
     <div id="gmap"></div>
     <div id="gmap-ctrls">
@@ -70,7 +75,22 @@
         <div id="gmap-ctrl3" class="gmap-ctrl">
         </div>
 
-        <div id="gmap-description" class="gmap-ctrl">
+
+    </div>
+    <div id="gmap-DialogContainer">
+        <div id="gmap-AddIconDialog" title="Add icon on route">
+            <form>
+                <fieldset>
+                    <label for="gmap-iconType">Type</label>
+                    <select name="gmap-iconType" id="gmap-iconType" class="ui-widget-content ui-corner-all">
+                        <option>camera</option>
+                        <option>info</option>
+                    </select>
+                    <label for="gmap-addIconDesct">Descriptions</label>
+                    <textarea name="gmap-addIconDesct" id="gmap-addIconDesct" rows="5" style="width: 100%" class="ui-widget-content ui-corner-all"></textarea>
+                    <input type="button" id="gmap-btnAddIconSave" class="btn btn-success btn-sm" tabindex="-1" style="position:absolute; top:-1000px">
+                </fieldset>
+            </form>
         </div>
     </div>
 </body>
@@ -81,9 +101,11 @@
         var Gmap = new GmapService();
         Gmap.initGoogleMap(sample2);
         Gmap.setCenter(10.801278, 106.712833);
-        Gmap.addDescription('https://cdn2.iconfinder.com/data/icons/color-svg-vector-icons-2/512/map_marker_base-256.png','marker');
-        Gmap.addDescription('https://cdn2.iconfinder.com/data/icons/snipicons/500/road-256.png','my road');
-        Gmap.addDescription('https://cdn4.iconfinder.com/data/icons/aiga-symbol-signs/388/aiga_taxi-256.png','car');
+        Gmap.addDescription(
+            'https://cdn2.iconfinder.com/data/icons/color-svg-vector-icons-2/512/map_marker_base-256.png', 'marker'
+        );
+        Gmap.addDescription('https://cdn2.iconfinder.com/data/icons/snipicons/500/road-256.png', 'my road');
+        Gmap.addDescription('https://cdn4.iconfinder.com/data/icons/aiga-symbol-signs/388/aiga_taxi-256.png', 'car');
     }
 </script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCIdU-_NtOo4l9pcOEIDMGbgIPnRitcIx8&callback=initMap"

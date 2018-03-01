@@ -10,16 +10,23 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
         crossorigin="anonymous">
     <link href="style.css" rel="stylesheet">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="jquery-3.2.1.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
         crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 
 <body>
     <div id="gmap-wait" name="gmap-wait" align="center"></div>
     <div class="GmapShowDetailControl">
-        <a id="gmap-btnShowDetail" class="btn btn-default btn-sm">
-            <i class="fa fa-list"></i> Road List</a>
+        <div>
+            <a id="gmap-btnShowDetail" class="btn btn-default btn-sm">
+                <i class="fa fa-list"></i> Road List</a>
+        </div>
+    </div>
+
+    <div id="gmap-description" class="gmap-ctrl">
     </div>
     <div id="gmap"></div>
     <div id="gmap-ctrls">
@@ -70,7 +77,22 @@
         <div id="gmap-ctrl3" class="gmap-ctrl">
         </div>
 
-        <div id="gmap-description" class="gmap-ctrl">
+
+    </div>
+    <div id="gmap-DialogContainer">
+        <div id="gmap-AddIconDialog" title="Add icon on route">
+            <form>
+                <fieldset>
+                    <label for="gmap-iconType">Type</label>
+                    <select name="gmap-iconType" id="gmap-iconType" class="ui-widget-content ui-corner-all">
+                        <option>camera</option>
+                        <option>info</option>
+                    </select>
+                    <label for="gmap-addIconDesct">Descriptions</label>
+                    <textarea name="gmap-addIconDesct" id="gmap-addIconDesct" rows="5" style="width: 100%" class="ui-widget-content ui-corner-all"></textarea>
+                    <input type="button" id="gmap-btnAddIconSave" class="btn btn-success btn-sm" tabindex="-1" style="position:absolute; top:-1000px">
+                </fieldset>
+            </form>
         </div>
     </div>
 </body>

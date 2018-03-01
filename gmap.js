@@ -60,7 +60,10 @@ var GmapService = /** @class */ (function () {
         };
         this.inforWindows = [];
         this.description = [];
-        this.cameraIcon = 'https://cdn3.iconfinder.com/data/icons/wpzoom-developer-icon-set/500/41-20.png';
+        this.myIcons = {
+            camera: 'https://cdn3.iconfinder.com/data/icons/wpzoom-developer-icon-set/500/41-20.png',
+            info: 'https://cdn2.iconfinder.com/data/icons/basic-ui-25/64/x-43-20.png'
+        };
     }
     GmapService.prototype.initGoogleMap = function (obj) {
         var _this = this;
@@ -72,6 +75,13 @@ var GmapService = /** @class */ (function () {
             },
             zoom: 5,
             gestureHandling: 'greedy',
+            mapTypeControlOptions: {
+                style: google.maps.MapTypeControlStyle.VERTICAL_BAR, //HORIZONTAL_BAR,
+                position: google.maps.ControlPosition.RIGHT_TOP
+            },
+            fullscreenControlOptions: {
+                position: google.maps.ControlPosition.RIGHT_BOTTOM
+            }
             // disableDefaultUI: true
         });
         this.directionsService = new google.maps.DirectionsService();
@@ -122,11 +132,11 @@ var GmapService = /** @class */ (function () {
     }
     GmapService.prototype.initPanelControl = function () {
         this.gmap.controller.controls[google.maps.ControlPosition.LEFT_TOP].push(document.getElementById('gmap-btnShowDetail'));
+        this.gmap.controller.controls[google.maps.ControlPosition.TOP_CENTER].push(document.getElementById('gmap-description'));
         this.gmap.controller.controls[google.maps.ControlPosition.LEFT_TOP].push(document.getElementById('gmap-ctrl1'));
         this.gmap.controller.controls[google.maps.ControlPosition.RIGHT_TOP].push(document.getElementById('gmap-ctrl2'));
         this.gmap.controller.controls[google.maps.ControlPosition.TOP_CENTER].push(document.getElementById('gmap-ctrl3'));
-        this.gmap.controller.controls[google.maps.ControlPosition.TOP_CENTER].push(document.getElementById('gmap-description'));
-
+        document.getElementById('gmap-DialogContainer').style.display = 'none';
         if (this.description.length < 1) {
             document.getElementById('gmap-description').style.display = 'none';
         }
@@ -152,10 +162,10 @@ var GmapService = /** @class */ (function () {
             })
         });
         var mother = this;
-        
+
         document.getElementById('gmap-ctrl3').style.display = 'none';
         var addIconPointControl = document.getElementById('gmap-addIconPoint');
-        if(!this.gmap.editMode){
+        if (!this.gmap.editMode) {
             addIconPointControl.style.display = 'none';
         }
         addIconPointControl.addEventListener('click', function () {
@@ -593,34 +603,34 @@ var GmapService = /** @class */ (function () {
                 //     fillOpacity: 1,
                 //     anchor: new google.maps.Point(17, 17)
                 // };
-                if (!road.metaData.icons) {
-                    road.metaData.icons = [];
-                }
-                var image = {
-                    anchor: new google.maps.Point(10, 10), //16: center of 32x32 image
-                    origin: new google.maps.Point(0, 0),
-                    scaledSize: new google.maps.Size(20, 20),
-                    size: new google.maps.Size(20, 20),
-                    url: mother.cameraIcon
-                };
-                GLOBAL.addIconPoint = false;
-                mother.routeMarkers.forEach(marker => {
-                    marker.setMap(null);
+                document.getElementById('gmap-DialogContainer').style.display = 'block';
+                dialog = $("#gmap-AddIconDialog").dialog({
+                    autoOpen: false,
+                    // height: 400,
+                    // width: 350,
+                    modal: true,
+                    buttons: {
+                        "Add Icon": function () {
+                            mother.addIconOnRouteProcess(road, event.latLng);
+                            dialog.dialog("close");
+                            GLOBAL.addIconPoint = false;
+                            document.getElementById('gmap-ctrl3').innerHTML = '';
+                            document.getElementById('gmap-ctrl3').style.display = 'none';
+                        },
+                        Cancel: function () {
+                            GLOBAL.addIconPoint = false;
+                            document.getElementById('gmap-ctrl3').innerHTML = '';
+                            document.getElementById('gmap-ctrl3').style.display = 'none';
+                            dialog.dialog("close");
+                        }
+                    },
+                    close: function () {
+                        form[0].reset();
+                    }
                 });
-                var iconMark = new google.maps.Marker({
-                    position: event.latLng,
-                    draggable: true,
-                    map: mother.gmap.controller,
-                    icon: image,
-                    // anchor: new google.maps.Point(5, 30)
-                });
-                iconMark.addListener('click', function (event) {
-                    var lat = event.latLng.lat();
-                    var lng = event.latLng.lng();
-                    mother.showInfoWindow('', road, this, event);
-                })
-                document.getElementById('gmap-ctrl3').innerHTML = '';
-                document.getElementById('gmap-ctrl3').style.display = 'none';
+
+                var form = dialog.find("form");
+                dialog.dialog("open");
             } else {
                 var bounds = new google.maps.LatLngBounds();
                 mother.routeMarkers.forEach(function (marker) {
@@ -700,6 +710,40 @@ var GmapService = /** @class */ (function () {
         }, 500);
     };
 
+    GmapService.prototype.addIconOnRouteProcess = function (road, latLng) {
+        var iconType = document.getElementById("gmap-iconType").value;
+        var desct = document.getElementById("gmap-addIconDesct").value;
+
+        if (!road.metaData.icons) {
+            road.metaData.icons = [];
+        }
+        var image = {
+            anchor: new google.maps.Point(10, 10), //16: center of 32x32 image
+            origin: new google.maps.Point(0, 0),
+            scaledSize: new google.maps.Size(20, 20),
+            size: new google.maps.Size(20, 20),
+            url: this.myIcons[iconType]
+        };
+        GLOBAL.addIconPoint = false;
+        this.routeMarkers.forEach(marker => {
+            marker.setMap(null);
+        });
+        var iconMark = new google.maps.Marker({
+            position: latLng,
+            draggable: true,
+            map: this.gmap.controller,
+            icon: image,
+            // anchor: new google.maps.Point(5, 30)
+        });
+        var mother = this;
+        iconMark.addListener('click', function (event) {
+            var lat = event.latLng.lat();
+            var lng = event.latLng.lng();
+            mother.showInfoWindow(desct, road, this, event);
+        })
+        document.getElementById('gmap-ctrl3').innerHTML = '';
+        document.getElementById('gmap-ctrl3').style.display = 'none';
+    }
     GmapService.prototype.showDetailPanel = function (road, position) {};
     GmapService.prototype.showInfoWindow = function (text, road, marker, markerLatLng) {
         var str;
@@ -715,12 +759,39 @@ var GmapService = /** @class */ (function () {
                     };
                     road.metaData.direction = newDirect;
                     if (marker)
-                        str = "<p>" + text + "<br><b>Lat: </b>" + markerLatLng.latLng.lat() + "<br><b>Lng: </b>" + markerLatLng.latLng.lng() + "<br><b>Location: </b>" + results[0].formatted_address + "</p>";
-                    else
-                        str = " <b>Location</b>: " + results[0].formatted_address + "<br><b>Direction: </b>" + road.metaData.direction.display + "<br></p>";
+                        str = `<p><strong>${text}</strong></p>
+                        <table class="table table-hover" style="width: 500px">
+                        <thead>
+                            <tr>
+                                <td><strong>Loaction</strong></td>
+                                <td><strong>Lat</strong></td>
+                                <td><strong>Lng</strong></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>${results[0].formatted_address}</td><td>${markerLatLng.latLng.lat()}</td><td>${markerLatLng.latLng.lng()}</td></tr>
+                        </tbody>
+                    </table>`;//"<p>" + text + "<br><b>Lat: </b>" + markerLatLng.latLng.lat() + "<br><b>Lng: </b>" + markerLatLng.latLng.lng() + "<br><b>Location: </b>" + results[0].formatted_address + "</p>";
+                    else {
+                        str = `<p><strong>${text}</strong></p><table class="table table-hover" style="width: 500px">
+                            <thead>
+                                <tr>
+                                    <td><strong>Location</strong></td>
+                                    <td><strong>Direction</strong></td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>${results[0].formatted_address}</td><td>${road.metaData.direction.display}</td></tr>
+                            </tbody>
+                        </table>`;//" <b>Location</b>: " + results[0].formatted_address + "<br><b>Direction: </b>" + road.metaData.direction.display + "<br></p>";
+                    }
                     var infowindow = new google.maps.InfoWindow({
                         content: str
                     });
+                    mother.inforWindows.forEach(infoWin => {
+                        infoWin.setMap(null);
+                    });
+                    mother.inforWindows = [];
                     if (marker)
                         infowindow.open(mother.gmap.controller, marker);
                     else {
